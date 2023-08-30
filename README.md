@@ -12,7 +12,7 @@ Menova AI is an innovative AI prompt marketplace built on the Polygon Blockchain
 
 - Smart Contract Integration: While the UI integration is still in progress, the underlying smart contract for the marketplace has been successfully built and deployed. The demo version allows users to buy NFTs directly from the NFT smart contract.
 
-- OpenSea API Integration: Menova AI leverages the OpenSea API to fetch all NFT data from the Avalanche testnet. This integration also facilitates the tokengating of prompts.
+- OpenSea API Integration: Menova AI leverages the OpenSea API to fetch all NFT data from the Polygon Network. This integration also facilitates the tokengating of prompts.
 
 ## Smart Contract Address
 
@@ -27,7 +27,7 @@ Menova AI is an innovative AI prompt marketplace built on the Polygon Blockchain
 | **NFT Metadata Storage**       | [NFT.storage](https://nft.storage/)                                                                                    | Employs IPFS to ensure decentralized and persistent storage of prompt NFT metadata.                                                                                                                |
 | **Smart Contract Development** | [Solidity](https://soliditylang.org/)                                                                                  | Used to craft the ERC1155 Smart Contract that facilitates AI prompt to NFT conversion and underpins the marketplace functionalities.                                                               |
 |                                | ERC1155 Marketplace                                                                                                    | The smart contract for the marketplace has been built and deployed, but is yet to be implemented in the UI. For the demo, users can create and purchase NFTs directly from the NFT Smart contract. |
-| **NFT Metadata Retrieval**     | [OpenSea API](https://docs.opensea.io/reference/api-overview)                                                          | Integrated to fetch comprehensive NFT metadata from the Avalanche Fuji blockchain.                                                                                                                 |
+| **NFT Metadata Retrieval**     | [OpenSea API](https://docs.opensea.io/reference/api-overview)                                                          | Integrated to fetch comprehensive NFT metadata from the Polygon blockchain.                                                                                                                 |
 | **Blockchain Interaction**     | [Ethers.js](https://docs.ethers.io/)                                                                                   | Facilitates seamless interaction with smart contracts on the Ethereum blockchain.                                                                                                                  |
 | **Authentication**             | [RainbowKit](https://www.rainbowkit.com/docs/introduction) & [WAGMI](https://wagmi.sh/)                                | Integrated to provide a streamlined and secure sign-in experience.                                                                                                                                 |
 

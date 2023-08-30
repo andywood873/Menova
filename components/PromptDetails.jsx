@@ -21,7 +21,7 @@ const PromptDetails = ({ tokenId, prompt }) => {
   };
 
   const apiKey = process.env.NEXT_PUBLIC_OPENSEA_KEY;
-  const chainName = "avalanche_fuji";
+  const chainName = "mumbai";
   const walletAddress = address;
   console.log(walletAddress);
   const API_URL = `https://testnets-api.opensea.io/v2/chain/${chainName}/account/${walletAddress}/nfts?limit=50`;

@@ -9,7 +9,7 @@ import { config } from '@/abi';
 import { useAccount, useBalance } from 'wagmi';
 import axios from 'axios';
 
-const avalancheAddress = config.menovaV3;
+const polygonAddress = config.menovaV3;
 
 const getRandomWord = () => {
   const words = ['Rare', 'Common'];
@@ -30,7 +30,7 @@ const PromptCard = ({
   const { address, isConnected } = useAccount();
   const [sellerAddress, setSellerAddress] = useState('');
 
-  const chainName = 'avalanche_fuji';
+  const chainName = 'polygon';
   const API_URL = `https://testnets-api.opensea.io/v2/chain/${chainName}/contract/${config.menovaV3}/nfts/${tokenId}`;
   const apiKey = process.env.NEXT_PUBLIC_OPENSEA_KEY;
 
@@ -90,7 +90,7 @@ const PromptCard = ({
           <div className="w-full">
             <div>
               <img
-                src="https://cryptologos.cc/logos/avalanche-avax-logo.png"
+                src="https://cryptologos.cc/logos/polygon-matic-logo.png"
                 alt=""
                 className="w-[34px] h-[35px] p-1 absolute top-4 right-3 bg-purple-800 rounded-2xl"
               />

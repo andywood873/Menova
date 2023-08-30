@@ -10,7 +10,7 @@ import convertArrayToObject from "@/utils/convertToObject";
 
 const Explore = () => {
   const [listedNFTs, setListedNFTs] = useState([]);
-  const chainName = "avalanche_fuji";
+  const chainName = "mumbai";
   const API_URL = `https://testnets-api.opensea.io/v2/chain/${chainName}/contract/${config.menovaV3}/nfts`;
   const apiKey = "474531d79fc84739a3b03950c9430bda";
 

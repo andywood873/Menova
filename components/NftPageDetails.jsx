@@ -213,7 +213,7 @@ const NftPageDetails = ({
             </div>
             <div className="glassmorphism p-4 text-start w-[210px]">
               <h1 className="font-bold">Chain:</h1>
-              <p> Avalanche Fuji Testnet</p>
+              <p> Polygon Mumbai</p>
             </div>
             <div className="bg-black/60 border shadow-2xl border-gray-400 p-4 text-start w-[210px]">
               <h1 className="font-bold">Current Supply:</h1>

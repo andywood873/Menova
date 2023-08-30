@@ -1,15 +1,15 @@
 /* eslint-disable @next/next/no-html-link-for-pages */
-import { Dialog, Transition } from "@headlessui/react";
-import { Fragment, useState } from "react";
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import axios from "axios";
-import { IoCheckmarkCircleOutline } from "react-icons/io5";
-import Link from "next/link";
-import MenovaV3 from "@/abi/MenovaV3.json";
-import MenovaPromptMarketplace from "@/abi/MenovaPromptMarketplace.json";
-import { config } from "@/abi";
-import { ethers } from "ethers";
+import { Dialog, Transition } from '@headlessui/react';
+import { Fragment, useState } from 'react';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import axios from 'axios';
+import { IoCheckmarkCircleOutline } from 'react-icons/io5';
+import Link from 'next/link';
+import MenovaV3 from '@/abi/MenovaV3.json';
+import MenovaPromptMarketplace from '@/abi/MenovaPromptMarketplace.json';
+import { config } from '@/abi';
+import { ethers } from 'ethers';
 
 const ListNftModal = ({
   openMintModal,
@@ -20,7 +20,7 @@ const ListNftModal = ({
   avalaibleQuantity,
 }) => {
   const [nftPrice, setNftPrice] = useState(1);
-  const [network, setNetwork] = useState("avalanche");
+  const [network, setNetwork] = useState('polygon');
   const [quantity, setQuantity] = useState(1);
   const [hasListed, setHasListed] = useState(false);
 
@@ -42,7 +42,7 @@ const ListNftModal = ({
       true
     );
     await approveTx.wait();
-    console.log("Marketplace approved");
+    console.log('Marketplace approved');
 
     // Create a contract instance for the marketplace
     const listPromptContract = new ethers.Contract(
@@ -53,13 +53,13 @@ const ListNftModal = ({
 
     const listPrompt = await listPromptContract.createListing(
       tokenId,
-      ethers.utils.parseEther("0.001"),
+      ethers.utils.parseEther('0.001'),
       ethers.BigNumber.from(quantity)
     );
 
     const receipt = await listPrompt.wait();
-    console.log("listPrompt: ", await listPrompt.hash);
-    console.log("receipt: ", receipt);
+    console.log('listPrompt: ', await listPrompt.hash);
+    console.log('receipt: ', receipt);
   };
 
   return (
