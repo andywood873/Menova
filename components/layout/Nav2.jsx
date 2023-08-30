@@ -2,39 +2,36 @@ import React, { useState } from 'react';
 import { SiBlockchaindotcom } from 'react-icons/si';
 import Link from 'next/link';
 import ChooseCreate from '../modal/ChooseCreate';
-import SocialLogin from '@biconomy/web3-auth';
-import '@biconomy/web3-auth/dist/src/style.css';
-// import { ConnectButton } from "@rainbow-me/rainbowkit";
+// import { ParticleAuthModule, ParticleProvider } from '@biconomy/particle-auth';
+import { ConnectButton } from '@rainbow-me/rainbowkit';
 
 const Nav2 = () => {
   const [sticky, setSticky] = useState(false);
   const [openModal, setOpenModal] = useState(false);
 
+  // const particle = new ParticleAuthModule.ParticleNetwork({
+  //   projectId: 'b6682f2a-3d66-467c-a533-1ca4b4fbc3a0',
+  //   clientKey: 'cVdqsZP37wZAohNXNI0p6cNmup2nH4E6igM5HToF',
+  //   appId: 'c2027494-2fb3-40ff-9ae0-2946839f86d8',
+  //   wallet: {
+  //     displayWalletEntry: true,
+  //     defaultWalletEntryPosition: ParticleAuthModule.WalletEntryPosition.BR,
+  //   },
+  // });
+
   const connectWallet = async () => {
-    // const signature2 = await socialLogin.whitelistUrl(
-    //   'https://yourdomain2.com'
-    // );
-
-    const socialLogin = new SocialLogin();
-
-    const signature1 = await socialLogin.whitelistUrl('https://localhost:3000');
-
-    await socialLogin.init({
-      whitelistUrls: {
-        'https://localhost:3000': signature1,
-      },
-    });
-
-    // pops up the UI widget
-    socialLogin.showWallet();
-
-    if (!socialLogin?.provider) return;
-    // create a provider from the social login provider that
-    // will be used by the smart account package of the Biconomy SDK
-    const provider = new ethers.providers.Web3Provider(socialLogin.provider);
-    // get a list of accounts available with the provider
-    const accounts = await provider.listAccounts();
-    console.log('EOA address', accounts);
+    // try {
+    //   const userInfo = await particle.auth.login();
+    //   console.log('Logged in user:', userInfo);
+    //   const particleProvider = new ParticleProvider(particle.auth);
+    //   console.log({ particleProvider });
+    //   const web3Provider = new ethers.providers.Web3Provider(
+    //     particleProvider,
+    //     'any'
+    //   );
+    // } catch (error) {
+    //   console.error(error);
+    // }
   };
 
   const handleOpenModal = () => {
@@ -86,6 +83,12 @@ const Nav2 = () => {
             <div className="absolute right-12">
               <ConnectButton showBalance={false} />
             </div>
+            {/* <div
+              className="absolute right-12 text-white"
+              onClick={connectWallet}
+            >
+              Connect
+            </div> */}
             &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
             <Link href="/profile">
               <span className="text-end ml-[80px] p-2 px-4 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-full" />

@@ -14,67 +14,23 @@ import {
   coinbaseWallet,
   walletConnectWallet,
 } from '@rainbow-me/rainbowkit/wallets';
-import { coreWallet } from '@rainbow-me/rainbowkit/wallets';
 import '@rainbow-me/rainbowkit/styles.css';
 import { jsonRpcProvider } from 'wagmi/providers/jsonRpc';
+import { polygonMumbai } from 'wagmi/chains';
+import { particleWallet } from '@particle-network/rainbowkit-ext';
 import merge from 'lodash.merge';
 import { FormProvider } from '@/context/formContext';
 import { DataProvider } from '@/context/DataContext';
+import { ParticleNetwork } from '@particle-network/auth';
 
-const AvalancheTestnet = {
-  id: 43113,
-  name: 'Avalanche Fuji Testnet',
-  network: 'avalanche-testnet',
-  iconUrl: 'https://cryptologos.cc/logos/avalanche-avax-logo.png',
-  iconBackground: '#fff',
-  nativeCurrency: {
-    decimals: 18,
-    name: 'AVAX',
-    symbol: 'AVAX',
-  },
-  rpcUrls: {
-    default: {
-      http: ['https://api.avax-test.network/ext/bc/C/rpc'],
-    },
-  },
-  blockExplorers: {
-    default: {
-      name: 'Snow Trace',
-      url: 'https://testnet.snowtrace.io/',
-    },
-  },
-  testnet: true,
-};
-
-const Sepolia = {
-  id: 11155111,
-  name: 'Sepolia Testnet',
-  network: 'sepolia-testnet',
-  iconUrl: 'https://cryptologos.cc/logos/avalanche-avax-logo.png',
-  iconBackground: '#fff',
-  nativeCurrency: {
-    decimals: 18,
-    name: 'ETH',
-    symbol: 'ETH',
-  },
-  rpcUrls: {
-    default: {
-      http: [
-        'https://eth-sepolia.g.alchemy.com/v2/_WbTkyNvmx_ay8v1kgmIdns9E_Bgu1X1',
-      ],
-    },
-  },
-  blockExplorers: {
-    default: {
-      name: 'Sepolia Etherscan',
-      url: 'https://sepolia.etherscan.io/',
-    },
-  },
-  testnet: true,
-};
+new ParticleNetwork({
+  projectId: process.env.NEXT_PUBLIC_PROJECT_ID,
+  clientKey: process.env.NEXT_PUBLIC_CLIENT_KEY,
+  appId: process.env.NEXT_PUBLIC_APP_ID,
+});
 
 const { provider, chains } = configureChains(
-  [Sepolia, AvalancheTestnet],
+  [polygonMumbai],
   [
     jsonRpcProvider({
       rpc: (chain) => ({ http: chain.rpcUrls.default.http[0] }),
@@ -82,12 +38,20 @@ const { provider, chains } = configureChains(
   ]
 );
 
+const particleWallets = [
+  particleWallet({ chains, authType: 'google' }),
+  particleWallet({ chains, authType: 'facebook' }),
+  particleWallet({ chains, authType: 'apple' }),
+  particleWallet({ chains }),
+];
+
 const projectId = process.env.NEXT_PUBLIC_WALLETCONNECT_ID;
 
 const connectors = connectorsForWallets([
   {
     groupName: 'Suggested',
     wallets: [
+      ...particleWallets,
       injectedWallet({ chains }),
       rainbowWallet({ projectId, chains }),
       metaMaskWallet({ projectId, chains }),
