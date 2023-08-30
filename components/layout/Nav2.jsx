@@ -1,12 +1,41 @@
-import React, { useState } from "react";
-import { SiBlockchaindotcom } from "react-icons/si";
-import Link from "next/link";
-import ChooseCreate from "../modal/ChooseCreate";
-import { ConnectButton } from "@rainbow-me/rainbowkit";
+import React, { useState } from 'react';
+import { SiBlockchaindotcom } from 'react-icons/si';
+import Link from 'next/link';
+import ChooseCreate from '../modal/ChooseCreate';
+import SocialLogin from '@biconomy/web3-auth';
+import '@biconomy/web3-auth/dist/src/style.css';
+// import { ConnectButton } from "@rainbow-me/rainbowkit";
 
 const Nav2 = () => {
   const [sticky, setSticky] = useState(false);
   const [openModal, setOpenModal] = useState(false);
+
+  const connectWallet = async () => {
+    // const signature2 = await socialLogin.whitelistUrl(
+    //   'https://yourdomain2.com'
+    // );
+
+    const socialLogin = new SocialLogin();
+
+    const signature1 = await socialLogin.whitelistUrl('https://localhost:3000');
+
+    await socialLogin.init({
+      whitelistUrls: {
+        'https://localhost:3000': signature1,
+      },
+    });
+
+    // pops up the UI widget
+    socialLogin.showWallet();
+
+    if (!socialLogin?.provider) return;
+    // create a provider from the social login provider that
+    // will be used by the smart account package of the Biconomy SDK
+    const provider = new ethers.providers.Web3Provider(socialLogin.provider);
+    // get a list of accounts available with the provider
+    const accounts = await provider.listAccounts();
+    console.log('EOA address', accounts);
+  };
 
   const handleOpenModal = () => {
     setOpenModal(true);
@@ -16,8 +45,8 @@ const Nav2 = () => {
     <nav
       className={
         sticky
-          ? "stick transition-all backdrop-filter backdrop-blur-lg bg-white bg-opacity-30 bg-transparent z-50"
-          : ""
+          ? 'stick transition-all backdrop-filter backdrop-blur-lg bg-white bg-opacity-30 bg-transparent z-50'
+          : ''
       }
     >
       <section className="container max-w-[78rem] mx-auto px-6 sticky">
