@@ -7,7 +7,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import { ethers } from 'ethers';
 import 'react-toastify/dist/ReactToastify.css';
 import ConfirmationModal from './modal/ConfirmationModal';
-import GalenV3 from '@/abi/GalenV3.json';
+import MenovaV3 from '@/abi/MenovaV3.json';
 import { config } from '@/abi';
 import SuccessModal from './modal/SuccessModal';
 
@@ -26,7 +26,7 @@ const CreateForm = () => {
       { trait_type: 'prompts', value: '' },
     ])
   );
-  const [extUrl, setExtUrl] = useState('https://www.galen.ai');
+  const [extUrl, setExtUrl] = useState('https://www.menova.ai');
   const [prompt, setPrompt] = useState('');
   const [maxSupply, setMaxSupply] = useState();
   const [price, setNftPrice] = useState();
@@ -88,8 +88,8 @@ const CreateForm = () => {
       const royaltyFeeWei = ethers.utils.parseUnits(royaltyFee.toString(), 2);
 
       const nftPromptFactory = new ethers.Contract(
-        config.galenV3,
-        GalenV3,
+        config.menovaV3,
+        MenovaV3,
         signer
       );
 

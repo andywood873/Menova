@@ -3,13 +3,13 @@ import { formatAddress } from '@/utils/formatAddress';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { ethers } from 'ethers';
-import GalenV3 from '@/abi/GalenV3.json';
-// import GalenPromptMarketplace from "@/abi/GalenPromptMarketplace.json";
+import MenovaV3 from '@/abi/MenovaV3.json';
+// import MenovaPromptMarketplace from "@/abi/MenovaPromptMarketplace.json";
 import { config } from '@/abi';
 import { useAccount, useBalance } from 'wagmi';
 import axios from 'axios';
 
-const avalancheAddress = config.galenV3;
+const avalancheAddress = config.menovaV3;
 
 const getRandomWord = () => {
   const words = ['Rare', 'Common'];
@@ -31,7 +31,7 @@ const PromptCard = ({
   const [sellerAddress, setSellerAddress] = useState('');
 
   const chainName = 'avalanche_fuji';
-  const API_URL = `https://testnets-api.opensea.io/v2/chain/${chainName}/contract/${config.galenV3}/nfts/${tokenId}`;
+  const API_URL = `https://testnets-api.opensea.io/v2/chain/${chainName}/contract/${config.menovaV3}/nfts/${tokenId}`;
   const apiKey = process.env.NEXT_PUBLIC_OPENSEA_KEY;
 
   const fetchData = async () => {
@@ -58,8 +58,8 @@ const PromptCard = ({
     );
 
     const priceGetterContract = new ethers.Contract(
-      config.galenV3,
-      GalenV3,
+      config.menovaV3,
+      MenovaV3,
       provider
     );
 

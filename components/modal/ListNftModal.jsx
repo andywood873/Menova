@@ -6,8 +6,8 @@ import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import { IoCheckmarkCircleOutline } from "react-icons/io5";
 import Link from "next/link";
-import GalenV3 from "@/abi/GalenV3.json";
-import GalenPromptMarketplace from "@/abi/GalenPromptMarketplace.json";
+import MenovaV3 from "@/abi/MenovaV3.json";
+import MenovaPromptMarketplace from "@/abi/MenovaPromptMarketplace.json";
 import { config } from "@/abi";
 import { ethers } from "ethers";
 
@@ -30,15 +30,15 @@ const ListNftModal = ({
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const signer = provider.getSigner();
 
-    const galenNftContract = new ethers.Contract(
-      config.galenV3,
-      GalenV3,
+    const menovaNftContract = new ethers.Contract(
+      config.menovaV3,
+      MenovaV3,
       signer
     );
 
     // Approve the marketplace contract to manage the user's tokens
-    const approveTx = await galenNftContract.setApprovalForAll(
-      config.galenPromptMarketplace,
+    const approveTx = await menovaNftContract.setApprovalForAll(
+      config.menovaPromptMarketplace,
       true
     );
     await approveTx.wait();
@@ -46,8 +46,8 @@ const ListNftModal = ({
 
     // Create a contract instance for the marketplace
     const listPromptContract = new ethers.Contract(
-      config.galenPromptMarketplace,
-      GalenPromptMarketplace,
+      config.menovaPromptMarketplace,
+      MenovaPromptMarketplace,
       signer
     );
 

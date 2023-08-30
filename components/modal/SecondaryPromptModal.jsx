@@ -8,8 +8,8 @@ import axios from "axios";
 import { IoCheckmarkCircleOutline } from "react-icons/io5";
 import { useAccount, useNetwork } from "wagmi";
 import Link from "next/link";
-import GalenV3 from "@/abi/GalenV3.json";
-import GalenPromptMarketplace from "@/abi/GalenPromptMarketplace.json";
+import MenovaV3 from "@/abi/MenovaV3.json";
+import MenovaPromptMarketplace from "@/abi/MenovaPromptMarketplace.json";
 import { config } from "@/abi";
 import { ethers } from "ethers";
 
@@ -143,8 +143,8 @@ const SecondaryPromptModal = ({ openMintModal, handleOnClose, prompt }) => {
       const royaltyFeeWei = ethers.utils.parseUnits(royaltyFee.toString(), 2);
 
       const nftPromptFactory = new ethers.Contract(
-        config.galenV3,
-        GalenV3,
+        config.menovaV3,
+        MenovaV3,
         signer
       );
 

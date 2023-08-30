@@ -10,12 +10,12 @@ const Hero = () => {
           <span className="text-transparent bg-clip-text bg-primer">
             Unleash Your Creativity
           </span>{" "}
-          with Galen Generative AI
+          with Menova Generative AI
         </p>
         <p className="max-w-[936px] text-center mt-3 sm:mt-4 text-base sm:text-xl text-gray-170 font-normal transition-all">
           Transform your prompts into digital masterpieces, convert them into
           NFTs, and sell on our marketplace. Explore Premium AI Prompts on
-          Galen's Marketplace!
+          Menova's Marketplace!
         </p>
         <button
           type="button"

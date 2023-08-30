@@ -5,7 +5,7 @@ import { FaLongArrowAltLeft } from 'react-icons/fa';
 import { BsFillPatchQuestionFill } from 'react-icons/bs';
 import { ethers } from 'ethers';
 import { config } from '@/abi';
-import GalenV3 from '@/abi/GalenV3.json';
+import MenovaV3 from '@/abi/MenovaV3.json';
 import { formatAddress } from '@/utils/formatAddress';
 import { formatDate } from '@/utils/formatDate';
 import Link from 'next/link';
@@ -15,7 +15,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import PromptDetails from './PromptDetails';
 import SuccessModal from './modal/SuccessModal';
 
-const nftAddress = config.galenV3;
+const nftAddress = config.menovaV3;
 
 const NftPageDetails = ({
   image,
@@ -61,8 +61,8 @@ const NftPageDetails = ({
     );
 
     const supplyGetterContract = new ethers.Contract(
-      config.galenV3,
-      GalenV3,
+      config.menovaV3,
+      MenovaV3,
       provider
     );
 
@@ -78,8 +78,8 @@ const NftPageDetails = ({
     );
 
     const priceGetterContract = new ethers.Contract(
-      config.galenV3,
-      GalenV3,
+      config.menovaV3,
+      MenovaV3,
       provider
     );
 
@@ -98,8 +98,8 @@ const NftPageDetails = ({
     const mintNotification = toast.loading('Please wait! Minting a Prompt NFT');
 
     const mintPromptContract = new ethers.Contract(
-      config.galenV3,
-      GalenV3,
+      config.menovaV3,
+      MenovaV3,
       signer
     );
 
