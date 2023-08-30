@@ -1,5 +1,6 @@
 {
   "devDependencies": {
+    "@gelatonetwork/relay-context": "^3.1.1",
     "@nomicfoundation/hardhat-toolbox": "^2.0.0",
     "hardhat": "^2.14.0"
   },
