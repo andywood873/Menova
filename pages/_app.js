@@ -22,6 +22,7 @@ import merge from 'lodash.merge';
 import { FormProvider } from '@/context/formContext';
 import { DataProvider } from '@/context/DataContext';
 import { ParticleNetwork } from '@particle-network/auth';
+import { AuthProvider } from '@/context/AuthContext';
 
 new ParticleNetwork({
   projectId: process.env.NEXT_PUBLIC_PROJECT_ID,
@@ -78,9 +79,11 @@ export default function App({ Component, pageProps }) {
     <WagmiConfig client={wagmiClient}>
       <RainbowKitProvider chains={chains} theme={myTheme} coolMode>
         <FormProvider>
-          <DataProvider>
-            <Component {...pageProps} />
-          </DataProvider>
+          <AuthProvider>
+            <DataProvider>
+              <Component {...pageProps} />
+            </DataProvider>
+          </AuthProvider>
         </FormProvider>
       </RainbowKitProvider>
     </WagmiConfig>

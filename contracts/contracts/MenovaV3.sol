@@ -3,8 +3,10 @@ pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/token/ERC1155/ERC1155.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
+import {ERC2771Context} from "@gelatonetwork/relay-context/contracts/vendor/ERC2771Context.sol";
+import "@openzeppelin/contracts/utils/Context.sol";
 
-contract MenovaV3 is ERC1155 {
+contract MenovaV3 is ERC1155, ERC2771Context {
     using Counters for Counters.Counter;
     Counters.Counter private _tokenIdCounter;
 
@@ -15,7 +17,11 @@ contract MenovaV3 is ERC1155 {
     mapping(uint256 => string) private _tokenURIs;
     mapping(uint256 => uint256) private _tokenPrices;
 
-    constructor(string memory name_, string memory symbol_) ERC1155("") {
+    constructor(
+        address trustedForwarder,
+        string memory name_,
+        string memory symbol_
+    ) ERC1155("") ERC2771Context(trustedForwarder) {
         _name = name_;
         _symbol = symbol_;
         _tokenIdCounter.increment();
@@ -37,7 +43,7 @@ contract MenovaV3 is ERC1155 {
         uint256 tokenId = _tokenIdCounter.current();
         _tokenIdCounter.increment();
 
-        _mint(msg.sender, tokenId, initialSupply, "");
+        _mint(_msgSender(), tokenId, initialSupply, "");
 
         _tokenSupply[tokenId] = initialSupply;
         _tokenURIs[tokenId] = tokenURI;
@@ -93,5 +99,23 @@ contract MenovaV3 is ERC1155 {
 
     function uri(uint256 tokenId) public view override returns (string memory) {
         return _tokenURIs[tokenId];
+    }
+
+    function _msgSender()
+        internal
+        view
+        override(ERC2771Context, Context)
+        returns (address)
+    {
+        return ERC2771Context._msgSender();
+    }
+
+    function _msgData()
+        internal
+        view
+        override(ERC2771Context, Context)
+        returns (bytes calldata)
+    {
+        return ERC2771Context._msgData();
     }
 }

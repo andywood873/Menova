@@ -2,37 +2,81 @@ import React, { useState } from 'react';
 import { SiBlockchaindotcom } from 'react-icons/si';
 import Link from 'next/link';
 import ChooseCreate from '../modal/ChooseCreate';
-// import { ParticleAuthModule, ParticleProvider } from '@biconomy/particle-auth';
+import { ParticleAuthModule, ParticleProvider } from '@biconomy/particle-auth';
+import { IBundler, Bundler } from '@biconomy/bundler';
+import {
+  BiconomySmartAccount,
+  BiconomySmartAccountConfig,
+  DEFAULT_ENTRYPOINT_ADDRESS,
+} from '@biconomy/account';
+import { ethers } from 'ethers';
+import { ChainId } from '@biconomy/core-types';
+import { IPaymaster, BiconomyPaymaster } from '@biconomy/paymaster';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
+import { useAuthContext } from '@/context/AuthContext';
 
 const Nav2 = () => {
   const [sticky, setSticky] = useState(false);
   const [openModal, setOpenModal] = useState(false);
+  const { connectWallet, address, loading } = useAuthContext();
+
+  // const [address, setAddress] = useState('');
+  // const [loading, setLoading] = useState(false);
+  // const [smartAccount, setSmartAccount] = useState(null);
+  // const [provider, setProvider] = useState(null);
+
+  // const POLYGON_MUMBAI = 80001;
 
   // const particle = new ParticleAuthModule.ParticleNetwork({
-  //   projectId: 'b6682f2a-3d66-467c-a533-1ca4b4fbc3a0',
-  //   clientKey: 'cVdqsZP37wZAohNXNI0p6cNmup2nH4E6igM5HToF',
-  //   appId: 'c2027494-2fb3-40ff-9ae0-2946839f86d8',
+  //   projectId: process.env.NEXT_PUBLIC_PROJECT_ID,
+  //   clientKey: process.env.NEXT_PUBLIC_CLIENT_KEY,
+  //   appId: process.env.NEXT_PUBLIC_APP_ID,
+
   //   wallet: {
   //     displayWalletEntry: true,
   //     defaultWalletEntryPosition: ParticleAuthModule.WalletEntryPosition.BR,
   //   },
   // });
 
-  const connectWallet = async () => {
-    // try {
-    //   const userInfo = await particle.auth.login();
-    //   console.log('Logged in user:', userInfo);
-    //   const particleProvider = new ParticleProvider(particle.auth);
-    //   console.log({ particleProvider });
-    //   const web3Provider = new ethers.providers.Web3Provider(
-    //     particleProvider,
-    //     'any'
-    //   );
-    // } catch (error) {
-    //   console.error(error);
-    // }
-  };
+  // const connectWallet = async () => {
+  //   try {
+  //     const userInfo = await particle.auth.login();
+  //     console.log('Logged in user:', userInfo);
+  //     const particleProvider = new ParticleProvider(particle.auth);
+  //     console.log({ particleProvider });
+  //     const web3Provider = new ethers.providers.Web3Provider(
+  //       particleProvider,
+  //       'any'
+  //     );
+  //     setProvider(web3Provider);
+  //     const biconomySmartAccountConfig = {
+  //       signer: web3Provider.getSigner(),
+  //       chainId: ChainId.POLYGON_MUMBAI,
+  //       bundler: bundler,
+  //       paymaster: paymaster,
+  //     };
+  //     let biconomySmartAccount = new BiconomySmartAccount(
+  //       biconomySmartAccountConfig
+  //     );
+  //     biconomySmartAccount = await biconomySmartAccount.init();
+  //     setAddress(await biconomySmartAccount.getSmartAccountAddress());
+  //     setSmartAccount(biconomySmartAccount);
+  //     setLoading(false);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
+
+  // const bundler = new Bundler({
+  //   bundlerUrl: `https://bundler.biconomy.io/api/v2/${80001}/nJPK7B3ru.dd7f7861-190d-41bd-af80-6877f74b8f44`,
+  //   chainId: ChainId.POLYGON_MUMBAI,
+  //   entryPointAddress: DEFAULT_ENTRYPOINT_ADDRESS,
+  // });
+
+  // const paymaster = new BiconomyPaymaster({
+  //   paymasterUrl:
+  //     'https://paymaster.biconomy.io/api/v1/80001/DpjwYtOnh.f88982aa-afc5-432b-80a9-14794fc54b9b', // paymaster url from dashboard
+  // });
 
   const handleOpenModal = () => {
     setOpenModal(true);
@@ -80,15 +124,18 @@ const Nav2 = () => {
                 </button>
               </div>
             </div>
-            <div className="absolute right-12">
+            {/* <div className="absolute right-12">
               <ConnectButton showBalance={false} />
-            </div>
-            {/* <div
-              className="absolute right-12 text-white"
-              onClick={connectWallet}
-            >
-              Connect
             </div> */}
+            {!loading && !address && (
+              <button onClick={connectWallet} className="text-white">
+                Connect to Based Web3
+              </button>
+            )}
+            {loading && <p>Loading Smart Account...</p>}
+            {address && (
+              <h2 className="text-white">Smart Account: {address}</h2>
+            )}
             &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
             <Link href="/profile">
               <span className="text-end ml-[80px] p-2 px-4 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-full" />
